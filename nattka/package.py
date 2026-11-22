@@ -232,6 +232,24 @@ def format_results(issues: typing.Iterable[Result]
                 yield f'>     {d}'
 
 
+def bug_cc_emails(pkg: pkgcore.ebuild.ebuild_src.package
+                  ) -> typing.Iterator[str]:
+    """
+    Yield e-mail addresses to CC on bugs for package
+
+    Per GLEP 67, these are all the package maintainers, plus upstream
+    maintainers that have requested to be CC-ed on bugs
+    via ``cc-on-bugs="yes"``.
+    """
+
+    for m in pkg.maintainers:
+        yield m.email
+    if pkg.upstream is not None:
+        for m in pkg.upstream.maintainers:
+            if m.cc_on_bugs and m.email:
+                yield m.email
+
+
 def is_masked(repo: UnconfiguredTree,
               pkg: pkgcore.ebuild.ebuild_src.package,
               keywords: typing.Iterable[str],

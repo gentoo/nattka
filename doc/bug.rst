@@ -124,9 +124,10 @@ correct arch teams from the package list, and add them to CC on next
 iteration.  This will happen only if sanity-check passes and the bug
 is not assigned to ``bug-wranglers@g.o``.
 
-The package maintainers from ``metadata.xml`` are added to CC as well.
-Unlike arch teams, maintainers are CC-ed even if the bug is assigned
-to ``bug-wranglers@g.o``.
+The package maintainers from ``metadata.xml`` are added to CC as well,
+along with upstream maintainers that have ``cc-on-bugs="yes"``
+(see GLEP 67 and GLEP 68).  Unlike arch teams, maintainers are CC-ed
+even if the bug is assigned to ``bug-wranglers@g.o``.
 
 
 ALLARCHES keyword

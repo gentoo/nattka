@@ -12,7 +12,7 @@ requires-python = ">=3.12"
 dependencies = [
     "lxml",
     "pkgcheck",
-    "pkgcore >=0.12.40",
+    "pkgcore >=0.12.50",
     "snakeoil",
 ]
 classifiers = [

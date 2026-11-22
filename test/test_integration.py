@@ -1658,7 +1658,8 @@ class IntegrationSuccessTests(IntegrationTestCase):
             sanity_check_update(
                 True, None,
                 cc_add=[
-                    'amd64@gentoo.org', 'hppa@gentoo.org', 'foo@example.com'],
+                    'amd64@gentoo.org', 'hppa@gentoo.org', 'foo@example.com',
+                    'upstream-cc@example.com'],
                 new_package_list=['test/mixed-keywords-3 amd64 hppa\r\n'
                                   'test/amd64-testing-2 amd64 hppa\r\n']))
         self.post_verify()
@@ -1762,7 +1763,7 @@ class IntegrationSuccessTests(IntegrationTestCase):
             sanity_check_update(
                 True, None,
                 cc_add=['amd64@gentoo.org', 'hppa@gentoo.org',
-                        'foo@example.com']))
+                        'foo@example.com', 'upstream-cc@example.com']))
         self.post_verify()
 
     @patch('nattka.__main__.make_bugzilla')
