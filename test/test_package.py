@@ -16,7 +16,7 @@ from pkgcore.ebuild.atom import atom
 
 from test.bug import mk_bug
 from nattka.keyword import KEYWORDS_RE
-from nattka.package import (add_keywords, check_dependencies,
+from nattka.package import (add_keywords, bug_cc_emails, check_dependencies,
                             find_repository, package_list_to_json,
                             merge_package_list, expand_package_list,
                             format_results, is_masked,
@@ -246,6 +246,23 @@ class ExpandPackageListTests(BaseRepoTestCase):
         with self.assertRaises(PackageListError):
             expand_package_list(self.repo,
                                 mk_bug(BugCategory.STABLEREQ, data))
+
+
+class BugCCEmailsTests(BaseRepoTestCase):
+    def test_maintainers(self):
+        self.assertEqual(
+            list(bug_cc_emails(self.get_package('=test/amd64-stable-1'))),
+            ['developer@example.com'])
+
+    def test_upstream_cc_on_bugs(self):
+        self.assertEqual(
+            list(bug_cc_emails(self.get_package('=test/mixed-keywords-1'))),
+            ['foo@example.com', 'upstream-cc@example.com'])
+
+    def test_no_maintainers(self):
+        self.assertEqual(
+            list(bug_cc_emails(self.get_package('=test/amd64-testing-1'))),
+            [])
 
 
 class FakeEbuild(object):

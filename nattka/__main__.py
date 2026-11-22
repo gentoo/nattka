@@ -33,7 +33,7 @@ from nattka.bugzilla import SKIP_TAG, make_bugzilla, split_dependent_bugs
 from nattka.git import (GitCommitNoChanges, GitDirtyWorkTree,
                         GitWorkTree, git_commit)
 from nattka.package import (find_repository, add_keywords,
-                            check_dependencies, is_masked,
+                            bug_cc_emails, check_dependencies, is_masked,
                             package_list_to_json, merge_package_list,
                             expand_package_list,
                             format_results, PackageKeywordsDict,
@@ -711,8 +711,8 @@ class NattkaCommands(object):
                                      itertools.chain.from_iterable(
                                          check_packages.values())))])
                         cc_maintainers = sorted(
-                            set(m.email for m in itertools.chain.from_iterable(
-                                pkg.maintainers for pkg
+                            set(itertools.chain.from_iterable(
+                                bug_cc_emails(pkg) for pkg
                                 in check_packages.keys()))
                             .difference(b.cc).difference([b.assigned_to]))
 
